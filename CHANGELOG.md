@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## v0.1.4 - 2026-11-17
+
 - Expand the dashboard language selector and translations to Turkish, English, Spanish, Simplified Chinese, Hindi, and Arabic.
 - Apply the selected language to the public maintenance page and add right-to-left layout direction for Arabic.
 
