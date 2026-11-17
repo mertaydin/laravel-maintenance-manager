@@ -5,6 +5,7 @@ namespace MertAydin\MaintenanceManager\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use MertAydin\MaintenanceManager\Support\MaintenanceManager;
 
@@ -28,13 +29,27 @@ class DashboardController extends Controller
             'message' => ['required', 'string', 'max:2000'],
             'starts_at' => ['nullable', 'date'],
             'ends_at' => ['nullable', 'date', 'after:starts_at'],
-            'allowed_ips' => ['nullable', 'string', 'max:5000'],\n            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'allowed_ips' => ['nullable', 'string', 'max:5000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         $ips = preg_split('/[\r\n,]+/', (string) ($validated['allowed_ips'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
         $ips = array_values(array_filter(array_map('trim', $ips), fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP)));
 
         $previous = $this->manager->state();
+        $image = $previous['image'] ?? null;
+
+        if ($request->hasFile('image')) {
+            $directory = public_path('vendor/maintenance-manager/uploads');
+            if (! is_dir($directory)) {
+                mkdir($directory, 0755, true);
+            }
+
+            $fileName = Str::uuid().'.'.$request->file('image')->extension();
+            $request->file('image')->move($directory, $fileName);
+            $image = 'vendor/maintenance-manager/uploads/'.$fileName;
+        }
+
         $enabled = (bool) ($validated['enabled'] ?? false);
         $history = $previous['history'] ?? [];
         if ($previous['enabled'] !== $enabled) {
@@ -51,7 +66,8 @@ class DashboardController extends Controller
             'message' => $validated['message'],
             'starts_at' => $validated['starts_at'] ?: null,
             'ends_at' => $validated['ends_at'] ?: null,
-            'allowed_ips' => $ips,\n            'image' => $image,
+            'allowed_ips' => $ips,
+            'image' => $image,
             'history' => $history,
             'updated_at' => now()->toIso8601String(),
         ]);
