@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+- Expand the dashboard language selector and translations to Turkish, English, Spanish, Simplified Chinese, Hindi, and Arabic.
+- Apply the selected language to the public maintenance page and add right-to-left layout direction for Arabic.
+
 ## v0.1.3
 
 - Replace the abbreviated license file with the complete standard MIT license text so GitHub can identify it.
