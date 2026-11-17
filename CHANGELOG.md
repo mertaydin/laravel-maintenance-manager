@@ -4,7 +4,7 @@ All notable changes to this project are documented here.
 
 ## v0.1.1
 
-- Add Laravel 13 compatibility.
+- Add Laravel 13 compatibility (PHP 8.3+).
 - Update Orchestra Testbench and PHPUnit development constraints for Laravel 13 testing.
 
 ## v0.1.0
