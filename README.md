@@ -1,6 +1,6 @@
 # Laravel Maintenance Manager
 
-A responsive maintenance-mode control panel for Laravel. Enable or schedule downtime, customize the visitor page, manage IP allowlists, and grant temporary bypass access with a private secret.
+A responsive maintenance-mode control panel for Laravel. Enable or schedule downtime, customize the visitor page with an optional image, manage IP allowlists, review recent mode changes, and grant temporary bypass access with a private secret.
 
 ## Requirements
 
@@ -52,7 +52,7 @@ Publish the config file and review:
 - `allowed_ips`: IP addresses that can access the application during maintenance.
 - `except`: URL path patterns excluded from maintenance.
 - `storage`: JSON state file path.
-- `timezone`: timezone used for scheduled start/end values.
+- `timezone`: timezone used for scheduled start/end values.\n\nThe dashboard includes Turkish and English interface labels, light/dark/system themes, and optional JPG, PNG, or WebP maintenance artwork (maximum 2 MB). Uploaded artwork is stored under `public/vendor/maintenance-manager/uploads`.
 - `bypass_secret`: optional temporary-access secret.
 
 The manager stores its state in `storage/app/maintenance-manager.json` by default. Ensure the PHP process can write to that directory.
