@@ -69,7 +69,7 @@ Publish the config file and review:
 - `timezone`: timezone used for scheduled start/end values.
 - `bypass_secret`: optional temporary-access secret.
 
-The dashboard includes Turkish and English interface labels, light/dark/system themes, and optional JPG, PNG, or WebP maintenance artwork (maximum 2 MB). Uploaded artwork is stored under `public/vendor/maintenance-manager/uploads`.
+The dashboard includes six languages (Turkish, English, Spanish, Simplified Chinese, Hindi, and Arabic), light/dark/system themes, and optional JPG, PNG, or WebP maintenance artwork (maximum 2 MB). The selected language is also applied to the public maintenance page. Uploaded artwork is stored under `public/vendor/maintenance-manager/uploads`.
 
 The manager stores its state in `storage/app/maintenance-manager.json` by default. Ensure the PHP process can write to that directory.
 
