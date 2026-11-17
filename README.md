@@ -1,5 +1,12 @@
 # Laravel Maintenance Manager
 
+[![Tests](https://github.com/mertaydin/laravel-maintenance-manager/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/mertaydin/laravel-maintenance-manager/actions/workflows/tests.yml)
+[![Latest Version](https://img.shields.io/packagist/v/mertaydin/laravel-maintenance-manager.svg?style=flat-square)](https://packagist.org/packages/mertaydin/laravel-maintenance-manager)
+[![Total Downloads](https://img.shields.io/packagist/dt/mertaydin/laravel-maintenance-manager.svg?style=flat-square)](https://packagist.org/packages/mertaydin/laravel-maintenance-manager)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/mertaydin/laravel-maintenance-manager.svg?style=flat-square)](https://packagist.org/packages/mertaydin/laravel-maintenance-manager)
+[![Daily Downloads](https://img.shields.io/packagist/dd/mertaydin/laravel-maintenance-manager.svg?style=flat-square)](https://packagist.org/packages/mertaydin/laravel-maintenance-manager)
+[![License](https://img.shields.io/github/license/mertaydin/laravel-maintenance-manager.svg?style=flat-square)](LICENSE)
+
 A responsive maintenance-mode control panel for Laravel.
 
 ## Dashboard preview
