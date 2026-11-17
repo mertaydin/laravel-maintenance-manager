@@ -1,8 +1,8 @@
 <?php
 
-namespace MertAydin\\MaintenanceManager\\Support;
+namespace MertAydin\MaintenanceManager\Support;
 
-use Illuminate\\Support\\Carbon;
+use Illuminate\Support\Carbon;
 use RuntimeException;
 
 class MaintenanceManager
