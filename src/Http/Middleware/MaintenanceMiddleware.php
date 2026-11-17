@@ -1,12 +1,12 @@
 <?php
 
-namespace MertAydin\\MaintenanceManager\\Http\\Middleware;
+namespace MertAydin\MaintenanceManager\Http\Middleware;
 
 use Closure;
-use Illuminate\\Http\\Request;
-use Illuminate\\Support\\Str;
-use MertAydin\\MaintenanceManager\\Support\\MaintenanceManager;
-use Symfony\\Component\\HttpFoundation\\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use MertAydin\MaintenanceManager\Support\MaintenanceManager;
+use Symfony\Component\HttpFoundation\Response;
 
 class MaintenanceMiddleware
 {
