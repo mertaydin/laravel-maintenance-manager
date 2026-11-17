@@ -53,9 +53,9 @@ Publish the config file and review:
 - `except`: URL path patterns excluded from maintenance.
 - `storage`: JSON state file path.
 - `timezone`: timezone used for scheduled start/end values.
+- `bypass_secret`: optional temporary-access secret.
 
 The dashboard includes Turkish and English interface labels, light/dark/system themes, and optional JPG, PNG, or WebP maintenance artwork (maximum 2 MB). Uploaded artwork is stored under `public/vendor/maintenance-manager/uploads`.
-- `bypass_secret`: optional temporary-access secret.
 
 The manager stores its state in `storage/app/maintenance-manager.json` by default. Ensure the PHP process can write to that directory.
 
