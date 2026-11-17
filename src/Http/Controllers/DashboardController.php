@@ -1,12 +1,12 @@
 <?php
 
-namespace MertAydin\\MaintenanceManager\\Http\\Controllers;
+namespace MertAydin\MaintenanceManager\Http\Controllers;
 
-use Illuminate\\Http\\RedirectResponse;
-use Illuminate\\Http\\Request;
-use Illuminate\\Routing\\Controller;
-use Illuminate\\View\\View;
-use MertAydin\\MaintenanceManager\\Support\\MaintenanceManager;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
+use MertAydin\MaintenanceManager\Support\MaintenanceManager;
 
 class DashboardController extends Controller
 {
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             'allowed_ips' => ['nullable', 'string', 'max:5000'],
         ]);
 
-        $ips = preg_split('/[\\r\\n,]+/', (string) ($validated['allowed_ips'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
+        $ips = preg_split('/[\r\n,]+/', (string) ($validated['allowed_ips'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
         $ips = array_values(array_filter(array_map('trim', $ips), fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP)));
 
         $previous = $this->manager->state();
