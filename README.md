@@ -1,6 +1,6 @@
 # Laravel Maintenance Manager
 
-A clean, responsive maintenance-mode dashboard for Laravel applications. Manage your maintenance page, schedule downtime, and allow trusted IP addresses to bypass the maintenance screen.
+A responsive maintenance-mode control panel for Laravel. Enable or schedule downtime, customize the visitor page, manage IP allowlists, and grant temporary bypass access with a private secret.
 
 ## Requirements
 
@@ -15,34 +15,61 @@ php artisan vendor:publish --tag=maintenance-manager-config
 php artisan vendor:publish --tag=maintenance-manager-assets
 ```
 
-Open `/maintenance-manager` (the default route middleware is `web` and `auth`). Change `route.middleware` in `config/maintenance-manager.php` if your application uses a different authentication middleware.
+The dashboard is available at `/maintenance-manager`. By default, its routes use Laravel's `web` and `auth` middleware. Change `route.middleware` in `config/maintenance-manager.php` if your application uses a different authentication or authorization middleware. Protect this route with an administrator-only policy or middleware in production.
 
-## Enable the maintenance middleware
+## Enable request interception
 
-Register `MertAydin\\MaintenanceManager\\Http\\Middleware\\MaintenanceMiddleware::class` in your application's global web middleware stack so that it can intercept visitor requests. Keep the manager route excluded (the default `maintenance-manager*` exception does this).
+The package deliberately does not register its maintenance middleware globally. Add it to your application's web middleware group so normal application requests are intercepted.
 
-For Laravel 11/12, add it to the `web` middleware group in `bootstrap/app.php`:
+### Laravel 11 and 12
+
+In `bootstrap/app.php`:
 
 ```php
-use MertAydin\\MaintenanceManager\\Http\\Middleware\\MaintenanceMiddleware;
-use Illuminate\\Foundation\\Configuration\\Middleware;
+use Illuminate\Foundation\Configuration\Middleware;
+use MertAydin\MaintenanceManager\Http\Middleware\MaintenanceMiddleware;
 
 ->withMiddleware(function (Middleware $middleware) {
-    $middleware->web(append: [MaintenanceMiddleware::class]);
+    $middleware->web(append: [
+        MaintenanceMiddleware::class,
+    ]);
 })
 ```
 
-For Laravel 10, append the middleware to the `web` group in `app/Http/Kernel.php`.
+### Laravel 10
+
+Append `MertAydin\MaintenanceManager\Http\Middleware\MaintenanceMiddleware::class` to the `web` middleware group in `app/Http/Kernel.php`.
+
+The default excluded paths include the dashboard route, Laravel's health endpoint, and common asset paths. Customize `except` in the package config as needed.
 
 ## Configuration
 
-Publish and edit `config/maintenance-manager.php` to customize the dashboard URL, route middleware, allowed IPs, excluded paths, storage file, and bypass secret.
+Publish the config file and review:
 
-The dashboard persists its state in `storage/app/maintenance-manager.json`. Ensure the web server can write to the `storage/app` directory.
+- `enabled`: master switch for the package middleware.
+- `route.prefix`: dashboard URL prefix.
+- `route.middleware`: middleware protecting the dashboard.
+- `allowed_ips`: IP addresses that can access the application during maintenance.
+- `except`: URL path patterns excluded from maintenance.
+- `storage`: JSON state file path.
+- `timezone`: timezone used for scheduled start/end values.
+- `bypass_secret`: optional temporary-access secret.
 
-## Bypass secret
+The manager stores its state in `storage/app/maintenance-manager.json` by default. Ensure the PHP process can write to that directory.
 
-Set `MAINTENANCE_MANAGER_BYPASS_SECRET` in `.env`. A visitor with the matching `?maintenance_bypass=...` query parameter can access the application. Keep this value private and rotate it after use.
+## Temporary bypass access
+
+Set a long random value in `.env`:
+
+```dotenv
+MAINTENANCE_MANAGER_BYPASS_SECRET="replace-with-a-long-random-secret"
+```
+
+Open a URL with `?maintenance_bypass=YOUR_SECRET`. The package validates the secret, redirects to the clean URL, and issues an HTTP-only bypass cookie. The cookie lifetime is configurable with `bypass_cookie_minutes`. Keep the secret private and rotate it after the maintenance window.
+
+## Assets and Content Security Policy
+
+The dashboard styles and scripts are served as separate published files under `public/vendor/maintenance-manager`. The package does not require inline JavaScript or inline style attributes.
 
 ## License
 
