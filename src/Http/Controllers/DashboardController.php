@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'message' => ['required', 'string', 'max:2000'],
             'starts_at' => ['nullable', 'date'],
             'ends_at' => ['nullable', 'date', 'after:starts_at'],
-            'allowed_ips' => ['nullable', 'string', 'max:5000'],
+            'allowed_ips' => ['nullable', 'string', 'max:5000'],\n            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         $ips = preg_split('/[\r\n,]+/', (string) ($validated['allowed_ips'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
@@ -51,7 +51,7 @@ class DashboardController extends Controller
             'message' => $validated['message'],
             'starts_at' => $validated['starts_at'] ?: null,
             'ends_at' => $validated['ends_at'] ?: null,
-            'allowed_ips' => $ips,
+            'allowed_ips' => $ips,\n            'image' => $image,
             'history' => $history,
             'updated_at' => now()->toIso8601String(),
         ]);
