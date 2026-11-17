@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## v0.1.2
+
+- Add Packagist version, download, license, and GitHub Actions test badges to the README.
+
 ## v0.1.1
 
 - Add Laravel 13 compatibility (PHP 8.3+).
