@@ -1,9 +1,9 @@
 <?php
 
-namespace MertAydin\\MaintenanceManager;
+namespace MertAydin\MaintenanceManager;
 
-use Illuminate\\Support\\ServiceProvider;
-use MertAydin\\MaintenanceManager\\Support\\MaintenanceManager;
+use Illuminate\Support\ServiceProvider;
+use MertAydin\MaintenanceManager\Support\MaintenanceManager;
 
 class MaintenanceManagerServiceProvider extends ServiceProvider
 {
