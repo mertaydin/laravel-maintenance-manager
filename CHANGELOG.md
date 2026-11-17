@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## v0.1.3
+
+- Replace the abbreviated license file with the complete standard MIT license text so GitHub can identify it.
+
 ## v0.1.2
 
 - Add Packagist version, download, license, and GitHub Actions test badges to the README.
