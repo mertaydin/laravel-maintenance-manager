@@ -1,11 +1,11 @@
 <?php
 
-namespace MertAydin\\MaintenanceManager\\Tests;
+namespace MertAydin\MaintenanceManager\Tests;
 
-use Illuminate\\Support\\Carbon;
-use MertAydin\\MaintenanceManager\\MaintenanceManagerServiceProvider;
-use MertAydin\\MaintenanceManager\\Support\\MaintenanceManager;
-use Orchestra\\Testbench\\TestCase;
+use Illuminate\Support\Carbon;
+use MertAydin\MaintenanceManager\MaintenanceManagerServiceProvider;
+use MertAydin\MaintenanceManager\Support\MaintenanceManager;
+use Orchestra\Testbench\TestCase;
 
 class ExampleTest extends TestCase
 {
