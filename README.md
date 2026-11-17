@@ -1,6 +1,13 @@
 # Laravel Maintenance Manager
 
-A responsive maintenance-mode control panel for Laravel. Enable or schedule downtime, customize the visitor page with an optional image, manage IP allowlists, review recent mode changes, and grant temporary bypass access with a private secret.
+A responsive maintenance-mode control panel for Laravel.
+
+## Dashboard preview
+
+<p align="center">
+  <img src="docs/images/dashboard-preview.svg" alt="Laravel Maintenance Manager dashboard preview" width="100%">
+</p>
+ Enable or schedule downtime, customize the visitor page with an optional image, manage IP allowlists, review recent mode changes, and grant temporary bypass access with a private secret.
 
 ## Requirements
 
