@@ -61,6 +61,7 @@ class MaintenanceManager
             'enabled' => false,
             'title' => 'We will be back soon',
             'message' => 'We are making a few improvements. Please check back shortly.',
+            'image' => null,
             'starts_at' => null,
             'ends_at' => null,
             'allowed_ips' => [],
