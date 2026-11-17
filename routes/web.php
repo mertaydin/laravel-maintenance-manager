@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\\Support\\Facades\\Route;
-use MertAydin\\MaintenanceManager\\Http\\Controllers\\DashboardController;
+use Illuminate\Support\Facades\Route;
+use MertAydin\MaintenanceManager\Http\Controllers\DashboardController;
 
 Route::group([
     'prefix' => config('maintenance-manager.route.prefix', 'maintenance-manager'),
