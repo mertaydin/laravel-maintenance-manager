@@ -12,7 +12,7 @@ A responsive maintenance-mode control panel for Laravel.
 ## Requirements
 
 - PHP 8.2+
-- Laravel 10, 11 or 12
+- Laravel 10, 11, 12 or 13
 
 ## Installation
 
@@ -28,7 +28,7 @@ The dashboard is available at `/maintenance-manager`. By default, its routes use
 
 The package deliberately does not register its maintenance middleware globally. Add it to your application's web middleware group so normal application requests are intercepted.
 
-### Laravel 11 and 12
+### Laravel 11, 12 and 13
 
 In `bootstrap/app.php`:
 
