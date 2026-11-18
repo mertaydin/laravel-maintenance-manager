@@ -31,6 +31,7 @@ class DashboardController extends Controller
             'ends_at' => ['nullable', 'date', 'after:starts_at'],
             'allowed_ips' => ['nullable', 'string', 'max:5000'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'remove_image' => ['nullable', 'boolean'],
         ]);
 
         $ips = preg_split('/[\r\n,]+/', (string) ($validated['allowed_ips'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
@@ -38,6 +39,21 @@ class DashboardController extends Controller
 
         $previous = $this->manager->state();
         $image = $previous['image'] ?? null;
+
+        if ($request->boolean('remove_image') && ! $request->hasFile('image')) {
+            $storedImage = $previous['image'] ?? null;
+            $uploadDirectory = public_path('vendor/maintenance-manager/uploads');
+            $storedPath = $storedImage ? public_path($storedImage) : null;
+            $realDirectory = realpath($uploadDirectory);
+            $realStoredPath = $storedPath ? realpath($storedPath) : false;
+
+            if ($realDirectory && $realStoredPath && is_file($realStoredPath)
+                && str_starts_with($realStoredPath, $realDirectory.DIRECTORY_SEPARATOR)) {
+                unlink($realStoredPath);
+            }
+
+            $image = null;
+        }
 
         if ($request->hasFile('image')) {
             $directory = public_path('vendor/maintenance-manager/uploads');
