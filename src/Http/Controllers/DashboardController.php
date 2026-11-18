@@ -39,6 +39,7 @@ class DashboardController extends Controller
 
         $previous = $this->manager->state();
         $image = $previous['image'] ?? null;
+        $imageToDelete = null;
 
         if ($request->boolean('remove_image') && ! $request->hasFile('image')) {
             $storedImage = $previous['image'] ?? null;
@@ -49,7 +50,7 @@ class DashboardController extends Controller
 
             if ($realDirectory && $realStoredPath && is_file($realStoredPath)
                 && str_starts_with($realStoredPath, $realDirectory.DIRECTORY_SEPARATOR)) {
-                unlink($realStoredPath);
+                $imageToDelete = $realStoredPath;
             }
 
             $image = null;
@@ -87,6 +88,10 @@ class DashboardController extends Controller
             'history' => $history,
             'updated_at' => now()->toIso8601String(),
         ]);
+
+        if ($imageToDelete && is_file($imageToDelete)) {
+            unlink($imageToDelete);
+        }
 
         return back()->with('status', 'Maintenance settings saved successfully.');
     }
