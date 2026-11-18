@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+- Allow administrators to remove an uploaded maintenance-page image and fall back to the built-in default illustration.
+
 ## v0.1.4 - 2026-11-17
 
 - Expand the dashboard language selector and translations to Turkish, English, Spanish, Simplified Chinese, Hindi, and Arabic.
