@@ -23,7 +23,7 @@
             scheduledWaiting:'Maintenance is scheduled or waiting for its start time.',
             visitorsNormally:'Visitors can access your application normally.', active:'Active', inactive:'Inactive',
             notScheduled:'Not scheduled', image:'Maintenance page image',
-            imageHelp:'Optional JPG, PNG or WebP image, maximum 2 MB.', activity:'ACTIVITY',
+            imageHelp:'Optional JPG, PNG or WebP image, maximum 2 MB.', removeImage:'Remove uploaded image', defaultImage:'The default maintenance illustration will be shown.', activity:'ACTIVITY',
             updated:'updated', temporary:'TEMPORARILY UNAVAILABLE', backSoon:"WE'LL BE RIGHT BACK",
             statusSaved:'Maintenance settings saved successfully.', language:'Language', theme:'Appearance',
             light:'Light', dark:'Dark', system:'System', madeFor:'Made for Laravel', settingsLocal:'Settings are stored locally in your application.'
@@ -45,7 +45,7 @@
             scheduledWaiting:'Bakım planlandı veya başlangıç zamanını bekliyor.',
             visitorsNormally:'Ziyaretçiler uygulamanıza normal şekilde erişebilir.', active:'Aktif', inactive:'Pasif',
             notScheduled:'Planlanmadı', image:'Bakım sayfası görseli',
-            imageHelp:'İsteğe bağlı JPG, PNG veya WebP görseli; en fazla 2 MB.', activity:'ETKİNLİK',
+            imageHelp:'İsteğe bağlı JPG, PNG veya WebP görseli; en fazla 2 MB.', removeImage:'Yüklenen görseli kaldır', defaultImage:'Varsayılan bakım görseli gösterilecek.', activity:'ETKİNLİK',
             updated:'güncellendi', temporary:'GEÇİCİ OLARAK KULLANILAMIYOR', backSoon:'KISA SÜREDE GERİ DÖNECEĞİZ',
             statusSaved:'Bakım ayarları başarıyla kaydedildi.', language:'Dil', theme:'Görünüm',
             light:'Açık', dark:'Koyu', system:'Sistem', madeFor:'Laravel için hazırlandı', settingsLocal:'Ayarlar uygulamanızda yerel olarak saklanır.'
@@ -67,7 +67,7 @@
             scheduledWaiting:'El mantenimiento está programado o esperando su hora de inicio.',
             visitorsNormally:'Los visitantes pueden acceder a tu aplicación con normalidad.', active:'Activo', inactive:'Inactivo',
             notScheduled:'No programado', image:'Imagen de la página de mantenimiento',
-            imageHelp:'Imagen JPG, PNG o WebP opcional; máximo 2 MB.', activity:'ACTIVIDAD',
+            imageHelp:'Imagen JPG, PNG o WebP opcional; máximo 2 MB.', removeImage:'Eliminar imagen subida', defaultImage:'Se mostrará la ilustración predeterminada.', activity:'ACTIVIDAD',
             updated:'actualizado', temporary:'NO DISPONIBLE TEMPORALMENTE', backSoon:'VOLVEREMOS EN BREVE',
             statusSaved:'Los ajustes de mantenimiento se guardaron correctamente.', language:'Idioma', theme:'Apariencia',
             light:'Claro', dark:'Oscuro', system:'Sistema', madeFor:'Hecho para Laravel', settingsLocal:'Los ajustes se guardan localmente en tu aplicación.'
@@ -89,7 +89,7 @@
             scheduledWaiting:'维护已安排或正在等待开始时间。',
             visitorsNormally:'访客可以正常访问应用程序。', active:'启用', inactive:'停用',
             notScheduled:'未安排', image:'维护页面图片',
-            imageHelp:'可选 JPG、PNG 或 WebP 图片，最大 2 MB。', activity:'活动记录',
+            imageHelp:'可选 JPG、PNG 或 WebP 图片，最大 2 MB。', removeImage:'移除已上传图片', defaultImage:'将显示默认维护插图。', activity:'活动记录',
             updated:'已更新', temporary:'暂时无法访问', backSoon:'我们很快回来',
             statusSaved:'维护设置已成功保存。', language:'语言', theme:'外观',
             light:'浅色', dark:'深色', system:'跟随系统', madeFor:'为 Laravel 打造', settingsLocal:'设置保存在应用程序本地。'
@@ -111,7 +111,7 @@
             scheduledWaiting:'मेंटेनेंस निर्धारित है या शुरू होने के समय की प्रतीक्षा कर रहा है।',
             visitorsNormally:'आगंतुक आपके एप्लिकेशन तक सामान्य रूप से पहुंच सकते हैं।', active:'सक्रिय', inactive:'निष्क्रिय',
             notScheduled:'निर्धारित नहीं', image:'मेंटेनेंस पेज छवि',
-            imageHelp:'वैकल्पिक JPG, PNG या WebP छवि, अधिकतम 2 MB।', activity:'गतिविधि',
+            imageHelp:'वैकल्पिक JPG, PNG या WebP छवि, अधिकतम 2 MB।', removeImage:'अपलोड की गई छवि हटाएं', defaultImage:'डिफ़ॉल्ट मेंटेनेंस चित्र दिखाया जाएगा।', activity:'गतिविधि',
             updated:'अपडेट किया गया', temporary:'अस्थायी रूप से अनुपलब्ध', backSoon:'हम जल्द वापस आएंगे',
             statusSaved:'मेंटेनेंस सेटिंग्स सफलतापूर्वक सहेजी गईं।', language:'भाषा', theme:'दिखावट',
             light:'लाइट', dark:'डार्क', system:'सिस्टम', madeFor:'Laravel के लिए बनाया गया', settingsLocal:'सेटिंग्स आपके एप्लिकेशन में स्थानीय रूप से संग्रहीत हैं।'
@@ -133,7 +133,7 @@
             scheduledWaiting:'تمت جدولة الصيانة أو أنها تنتظر وقت البدء.',
             visitorsNormally:'يمكن للزوار الوصول إلى تطبيقك بشكل طبيعي.', active:'نشط', inactive:'غير نشط',
             notScheduled:'غير مجدول', image:'صورة صفحة الصيانة',
-            imageHelp:'صورة اختيارية بصيغة JPG أو PNG أو WebP، بحد أقصى 2 ميجابايت.', activity:'النشاط',
+            imageHelp:'صورة اختيارية بصيغة JPG أو PNG أو WebP، بحد أقصى 2 ميجابايت.', removeImage:'إزالة الصورة المرفوعة', defaultImage:'سيتم عرض الرسم التوضيحي الافتراضي للصيانة.', activity:'النشاط',
             updated:'تم التحديث', temporary:'غير متاح مؤقتاً', backSoon:'سنعود قريباً',
             statusSaved:'تم حفظ إعدادات الصيانة بنجاح.', language:'اللغة', theme:'المظهر',
             light:'فاتح', dark:'داكن', system:'النظام', madeFor:'صُنع لـ Laravel', settingsLocal:'يتم حفظ الإعدادات محلياً في تطبيقك.'
