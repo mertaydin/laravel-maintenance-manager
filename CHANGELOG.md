@@ -5,7 +5,6 @@
 - Refresh the README dashboard preview with the current maintenance controls, schedule, IP allowlist, and visitor-page settings.
 - Publish the refreshed documentation preview.
 
-# Changelog
 
 All notable changes to this project are documented here.
 
