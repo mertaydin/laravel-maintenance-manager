@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## Unreleased
 
+## v0.1.5 - 2026-11-18
+
 - Allow administrators to remove an uploaded maintenance-page image and fall back to the built-in default illustration.
 
 ## v0.1.4 - 2026-11-17
