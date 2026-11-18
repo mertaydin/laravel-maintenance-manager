@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.7 - 2026-11-18
+
+- Refresh the README dashboard preview with the current maintenance controls, schedule, IP allowlist, and visitor-page settings.
+
+# Changelog
+
 All notable changes to this project are documented here.
 
 ## Unreleased
