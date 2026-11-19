@@ -113,3 +113,7 @@ MIT
 - [Changelog](CHANGELOG.md)
 - [GitHub releases](https://github.com/mertaydin/laravel-maintenance-manager/releases)
 - [Report an issue or request a feature](https://github.com/mertaydin/laravel-maintenance-manager/issues)
+
+---
+
+**Dil / Language:** [Türkçe README](README.tr.md) · [English README](README.md)
