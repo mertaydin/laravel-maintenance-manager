@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.13 - 2026-11-19
+
+- Add automated browser capture of the live maintenance dashboard and update the README screenshot.
+
+
 ## v0.1.12 - 2026-11-19
 
 - Document force-refreshing published dashboard assets after package updates.
