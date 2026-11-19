@@ -103,3 +103,9 @@ The dashboard styles and scripts are served as separate published files under `p
 ## License
 
 MIT
+
+## Documentation and support
+
+- [Changelog](CHANGELOG.md)
+- [GitHub releases](https://github.com/mertaydin/laravel-maintenance-manager/releases)
+- [Report an issue or request a feature](https://github.com/mertaydin/laravel-maintenance-manager/issues)
