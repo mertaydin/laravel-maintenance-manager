@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.11 - 2026-11-19
+
+- Add direct README links to the changelog, releases, and issue support.
 ## v0.1.10 - 2026-11-19
 
 - Correct the route middleware declaration while keeping authentication mandatory for the dashboard and update endpoint.
