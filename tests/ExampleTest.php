@@ -3,7 +3,9 @@
 namespace MertAydin\MaintenanceManager\Tests;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use MertAydin\MaintenanceManager\Http\Middleware\MaintenanceMiddleware;
 use MertAydin\MaintenanceManager\MaintenanceManagerServiceProvider;
 use MertAydin\MaintenanceManager\Support\MaintenanceManager;
 use Orchestra\Testbench\TestCase;
@@ -47,6 +49,34 @@ class ExampleTest extends TestCase
 
         $this->put(route('maintenance-manager.update'), [])
             ->assertRedirect(route('login'));
+    }
+
+    public function test_bypass_secret_is_rejected_over_plain_http(): void
+    {
+        config()->set('maintenance-manager.bypass_secret', 'test-secret');
+        app(MaintenanceManager::class)->save(['enabled' => true]);
+
+        $request = Request::create('http://localhost/?maintenance_bypass=test-secret');
+        $response = app(MaintenanceMiddleware::class)->handle($request, fn () => response('next'));
+
+        $this->assertSame(503, $response->getStatusCode());
+        $this->assertNull($response->headers->get('Set-Cookie'));
+    }
+
+    public function test_bypass_secret_over_https_issues_a_protected_cookie_and_clean_redirect(): void
+    {
+        config()->set('maintenance-manager.bypass_secret', 'test-secret');
+        app(MaintenanceManager::class)->save(['enabled' => true]);
+
+        $request = Request::create('https://localhost/?maintenance_bypass=test-secret');
+        $response = app(MaintenanceMiddleware::class)->handle($request, fn () => response('next'));
+
+        $this->assertSame(302, $response->getStatusCode());
+        $this->assertSame('https://localhost/', $response->headers->get('Location'));
+        $this->assertSame('no-referrer', $response->headers->get('Referrer-Policy'));
+        $this->assertStringContainsString('HttpOnly', (string) $response->headers->get('Set-Cookie'));
+        $this->assertStringContainsString('Secure', (string) $response->headers->get('Set-Cookie'));
+        $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
     }
 
     public function test_package_metadata_is_present(): void
