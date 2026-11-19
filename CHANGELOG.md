@@ -1,3 +1,7 @@
+## v0.2.2 - 2026-11-19
+
+- Publish the consolidated security CI baseline with Composer audit, PHPStan/Larastan, Pint, PHP syntax validation, automated tests, and Dependabot updates.
+
 ## v0.1.18 - 2026-11-19
 
 - Add the shared security CI baseline: Composer audit, PHPStan/Larastan, changed-file Pint checks, PHP syntax validation, and automated tests.
