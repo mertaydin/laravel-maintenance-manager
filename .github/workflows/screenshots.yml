@@ -11,7 +11,7 @@ on:
       - 'resources/**/css/**'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: maintenance-manager-screenshot
@@ -21,15 +21,19 @@ jobs:
   capture:
     runs-on: ubuntu-latest
     timeout-minutes: 8
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: true
+      - uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
         with:
           php-version: '8.3'
           extensions: mbstring, sqlite3, pdo_sqlite
           tools: composer:v2
           coverage: none
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
       - name: Create temporary Laravel host
