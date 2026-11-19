@@ -72,7 +72,7 @@ class ExampleTest extends TestCase
         $response = app(MaintenanceMiddleware::class)->handle($request, fn () => response('next'));
 
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('https://localhost/', $response->headers->get('Location'));
+        $this->assertSame('https://localhost', $response->headers->get('Location'));
         $this->assertSame('no-referrer', $response->headers->get('Referrer-Policy'));
         $this->assertStringContainsString('HttpOnly', (string) $response->headers->get('Set-Cookie'));
         $this->assertStringContainsString('Secure', (string) $response->headers->get('Set-Cookie'));
