@@ -24,7 +24,7 @@ Add an admin/role middleware here when only privileged users should manage maint
 
 ## Dashboard preview
 
-The screenshot is captured from the package's real dashboard in a temporary Laravel application by GitHub Actions.
+The screenshot is automatically recaptured from the real package dashboard in a temporary Laravel application by GitHub Actions.
 
 <p align="center">
   <img src="docs/images/dashboard-screenshot.png" alt="Laravel Maintenance Manager dashboard preview" width="100%">
