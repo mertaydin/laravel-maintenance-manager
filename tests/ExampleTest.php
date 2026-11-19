@@ -19,6 +19,7 @@ class ExampleTest extends TestCase
     {
         parent::setUp();
 
+        config()->set('app.key', 'base64:'.base64_encode(str_repeat('a', 32)));
         config()->set('maintenance-manager.storage', sys_get_temp_dir().'/maintenance-manager-'.uniqid().'.json');
         config()->set('maintenance-manager.timezone', 'Europe/Istanbul');
     }
