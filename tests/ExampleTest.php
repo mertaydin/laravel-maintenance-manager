@@ -3,6 +3,7 @@
 namespace MertAydin\MaintenanceManager\Tests;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Route;
 use MertAydin\MaintenanceManager\MaintenanceManagerServiceProvider;
 use MertAydin\MaintenanceManager\Support\MaintenanceManager;
 use Orchestra\Testbench\TestCase;
