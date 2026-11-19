@@ -39,8 +39,10 @@ Add an admin/role middleware here when only privileged users should manage maint
 ```bash
 composer require mertaydin/laravel-maintenance-manager
 php artisan vendor:publish --tag=maintenance-manager-config
-php artisan vendor:publish --tag=maintenance-manager-assets
+php artisan vendor:publish --tag=maintenance-manager-assets --force
 ```
+
+After every package update, rerun the asset publishing command with `--force` so the latest dashboard JavaScript and CSS replace previously published copies.
 
 The dashboard is available at `/maintenance-manager`. By default, its routes use Laravel's `web` and `auth` middleware. Change `route.middleware` in `config/maintenance-manager.php` if your application uses a different authentication or authorization middleware. Protect this route with an administrator-only policy or middleware in production.
 
