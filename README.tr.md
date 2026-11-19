@@ -1,5 +1,13 @@
 # Laravel Maintenance Manager
 
+[![Latest Version](https://img.shields.io/packagist/v/laravel-maintenance-manager?label=Packagist)](https://packagist.org/packages/laravel-maintenance-manager)
+[![Total Downloads](https://img.shields.io/packagist/dt/laravel-maintenance-manager?label=downloads)](https://packagist.org/packages/laravel-maintenance-manager)
+[![PHP](https://img.shields.io/packagist/php-v/laravel-maintenance-manager?label=PHP)](https://packagist.org/packages/laravel-maintenance-manager)
+[![Laravel](https://img.shields.io/badge/Laravel-10%20%7C%2011%20%7C%2012%20%7C%2013-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
+[![CI](https://github.com/mertaydin/laravel-maintenance-manager/actions/workflows/tests.yml/badge.svg?branch=main&label=CI)](https://github.com/mertaydin/laravel-maintenance-manager/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+
 Laravel için duyarlı bir bakım modu yönetim paneli.
 
 ## Panel yetkilendirmesi
