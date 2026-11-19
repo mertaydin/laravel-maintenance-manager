@@ -74,8 +74,8 @@ class ExampleTest extends TestCase
         $this->assertSame(302, $response->getStatusCode());
         $this->assertSame('https://localhost', $response->headers->get('Location'));
         $this->assertSame('no-referrer', $response->headers->get('Referrer-Policy'));
-        $this->assertStringContainsString('HttpOnly', (string) $response->headers->get('Set-Cookie'));
-        $this->assertStringContainsString('Secure', (string) $response->headers->get('Set-Cookie'));
+        $this->assertStringContainsString('httponly', strtolower((string) $response->headers->get('Set-Cookie')));
+        $this->assertStringContainsString('secure', strtolower((string) $response->headers->get('Set-Cookie')));
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
     }
 
