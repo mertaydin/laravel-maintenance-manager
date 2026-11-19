@@ -40,6 +40,8 @@ class ExampleTest extends TestCase
     {
         Route::get('/login', fn () => 'login')->name('login');
 
+        $this->assertContains('auth', Route::getRoutes()->getByName('maintenance-manager.index')->gatherMiddleware());
+
         $this->get(route('maintenance-manager.index'))
             ->assertRedirect(route('login'));
 
