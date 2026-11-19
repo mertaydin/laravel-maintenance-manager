@@ -70,7 +70,7 @@ jobs:
           PHP
           sed -i "s/'web', 'auth'/'web'/" vendor/mertaydin/laravel-maintenance-manager/routes/web.php
           npm install --no-audit --no-fund playwright
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium || npx playwright install chromium
       - name: Start Laravel
         working-directory: screenshot-app
         run: |
