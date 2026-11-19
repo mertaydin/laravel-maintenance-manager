@@ -19,6 +19,16 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-      - uses: ramsey/composer-install@a35c6ebd3d08125aaf8852dff361e686a1a67947 # v3.2.0
+      - name: Install dependencies
+        run: |
+          for attempt in 1 2 3; do
+            if COMPOSER_MAX_PARALLEL_HTTP=2 composer update --prefer-dist --no-interaction --no-progress; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              sleep $((attempt * 15))
+            fi
+          done
+          exit 1
       - run: composer validate --strict
       - run: composer test
