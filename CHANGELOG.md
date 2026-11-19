@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.10 - 2026-11-19
+
+- Correct the route middleware declaration while keeping authentication mandatory for the dashboard and update endpoint.
+
+
 ## v0.1.9 - 2026-11-19
 
 - Enforce the `web` and `auth` middleware on management routes even when additional route middleware is customized; add regression tests for guest access.
