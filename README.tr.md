@@ -100,7 +100,7 @@ Yönetici varsayılan olarak durumunu `storage/app/maintenance-manager.json` dos
 MAINTENANCE_MANAGER_BYPASS_SECRET="replace-with-a-long-random-secret"
 ```
 
-`?maintenance_bypass=YOUR_SECRET` parametresini içeren bir URL açın. Paket anahtarı doğrular, temiz URL'ye yönlendirir ve HTTP-only bypass çerezi oluşturur. Çerez ömrü `bypass_cookie_minutes` ile yapılandırılır. Anahtarı gizli tutun ve bakım penceresi sona erdikten sonra değiştirin.
+Uygulamayı HTTPS üzerinden `?maintenance_bypass=YOUR_SECRET` parametresiyle açın. Paket bu kimlik bilgisini düz HTTP üzerinden reddeder; anahtarı doğrular, temiz URL'ye yönlendirir ve Secure, HTTP-only bypass çerezi oluşturur. Yönlendirme ayrıca `Referrer-Policy: no-referrer` ve `Cache-Control: no-store` başlıklarını ekler. Çerez ömrü `bypass_cookie_minutes` ile yapılandırılır. Laravel'in HTTPS bağlantısını doğru algıladığından (güvenilen proxy yapılandırması dahil) emin olun, anahtarı gizli tutun ve bakım penceresi sona erdikten sonra değiştirin.
 
 ## Asset'ler ve Content Security Policy
 
