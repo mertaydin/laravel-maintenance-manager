@@ -99,7 +99,7 @@ Set a long random value in `.env`:
 MAINTENANCE_MANAGER_BYPASS_SECRET="replace-with-a-long-random-secret"
 ```
 
-Open a URL with `?maintenance_bypass=YOUR_SECRET`. The package validates the secret, redirects to the clean URL, and issues an HTTP-only bypass cookie. The cookie lifetime is configurable with `bypass_cookie_minutes`. Keep the secret private and rotate it after the maintenance window.
+Open the application over HTTPS with `?maintenance_bypass=YOUR_SECRET`. The package rejects this credential over plain HTTP, validates it, redirects to the clean URL, and issues a Secure, HTTP-only bypass cookie. The redirect also sets `Referrer-Policy: no-referrer` and `Cache-Control: no-store`. The cookie lifetime is configurable with `bypass_cookie_minutes`. Ensure HTTPS is correctly detected by Laravel (including trusted proxy configuration), keep the secret private, and rotate it after the maintenance window.
 
 ## Assets and Content Security Policy
 
