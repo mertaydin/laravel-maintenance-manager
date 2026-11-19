@@ -39,18 +39,22 @@ class MaintenanceMiddleware
         }
 
         $queryToken = (string) $request->query('maintenance_bypass', '');
-        if ($secret && $queryToken !== '' && hash_equals((string) $secret, $queryToken)) {
+        // A bypass secret is a credential. Never accept it over plain HTTP,
+        // where it could be intercepted, and prevent browsers from forwarding
+        // the credential-bearing URL as a referrer.
+        if ($request->isSecure() && $secret && $queryToken !== '' && hash_equals((string) $secret, $queryToken)) {
             return redirect()->to($request->url())->withCookie(cookie(
                 $cookieName,
                 hash('sha256', (string) $secret),
                 (int) config('maintenance-manager.bypass_cookie_minutes', 60),
                 '/',
                 null,
-                $request->isSecure(),
+                true,
                 true,
                 false,
                 'lax'
-            ));
+            ))->header('Referrer-Policy', 'no-referrer')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
         }
 
         return response()->view('maintenance-manager::maintenance', ['state' => $state], 503)
