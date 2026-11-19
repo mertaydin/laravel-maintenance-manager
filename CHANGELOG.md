@@ -1,5 +1,9 @@
 # Changelog
 
+
+## v0.1.8 - 2026-11-19
+
+- Protect the maintenance manager dashboard and update endpoint with the default authenticated route middleware; add regression coverage and authorization documentation.
 ## v0.1.7 - 2026-11-18
 
 - Refresh the README dashboard preview with the current maintenance controls, schedule, IP allowlist, and visitor-page settings.
