@@ -33,6 +33,18 @@ class ExampleTest extends TestCase
         parent::tearDown();
     }
 
+
+    public function test_dashboard_routes_require_authentication(): void
+    {
+        Route::get('/login', fn () => 'login')->name('login');
+
+        $this->get(route('maintenance-manager.index'))
+            ->assertRedirect(route('login'));
+
+        $this->put(route('maintenance-manager.update'), [])
+            ->assertRedirect(route('login'));
+    }
+
     public function test_package_metadata_is_present(): void
     {
         $composer = json_decode(file_get_contents(__DIR__.'/../composer.json'), true);
