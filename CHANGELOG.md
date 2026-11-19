@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.12 - 2026-11-19
+
+- Document force-refreshing published dashboard assets after package updates.
+
 ## v0.1.11 - 2026-11-19
 
 - Add direct README links to the changelog, releases, and issue support.
