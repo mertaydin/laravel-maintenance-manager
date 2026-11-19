@@ -9,6 +9,19 @@
 
 A responsive maintenance-mode control panel for Laravel.
 
+## Dashboard authorization
+
+The management dashboard is protected by Laravel's `web` and `auth` middleware by default. Both the dashboard page and its update endpoint require an authenticated user. You can customize the route middleware in the published `config/maintenance-manager.php` file:
+
+```php
+'route' => [
+    'prefix' => env('MAINTENANCE_MANAGER_ROUTE_PREFIX', 'maintenance-manager'),
+    'middleware' => ['web', 'auth'],
+],
+```
+
+Add an admin/role middleware here when only privileged users should manage maintenance mode.
+
 ## Dashboard preview
 
 <p align="center">
