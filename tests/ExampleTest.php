@@ -2,8 +2,8 @@
 
 namespace MertAydin\MaintenanceManager\Tests;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 use MertAydin\MaintenanceManager\Http\Middleware\MaintenanceMiddleware;
 use MertAydin\MaintenanceManager\MaintenanceManagerServiceProvider;
@@ -36,7 +36,6 @@ class ExampleTest extends TestCase
         Carbon::setTestNow();
         parent::tearDown();
     }
-
 
     public function test_dashboard_routes_require_authentication(): void
     {
