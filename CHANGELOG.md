@@ -1,4 +1,4 @@
-## Unreleased
+## v0.2.4 - 2026-11-23
 
 - Require an explicit Laravel authorization Gate to view or modify maintenance settings; authenticated users without the configured permission are denied by default.
 - Add authorization regression tests and document Gate configuration.
