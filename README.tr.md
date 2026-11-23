@@ -12,16 +12,17 @@ Laravel için duyarlı bir bakım modu yönetim paneli.
 
 ## Panel yetkilendirmesi
 
-Yönetim paneli varsayılan olarak Laravel'in `web` ve `auth` middleware'leriyle korunur. Hem panel sayfası hem de güncelleme uç noktası kimliği doğrulanmış kullanıcı gerektirir. Yayımlanan `config/maintenance-manager.php` dosyasında rota middleware'lerini özelleştirebilirsiniz:
+Yönetim paneli hem kimliği doğrulanmış kullanıcı hem de açıkça izin veren bir Laravel Gate gerektirir. Paneli görüntüleme ve bakım ayarlarını değiştirme işlemleri, yapılandırılan Gate kullanıcıya izin vermediği sürece reddedilir. Böylece sıradan bir oturum açmış kullanıcı bakım modunu etkinleştiremez, IP izin listesini değiştiremez veya ziyaretçi sayfasını düzenleyemez.
+
+Uygulamanızda varsayılan Gate'i tanımlayın (örneğin `App\Providers\AppServiceProvider::boot()` içinde):
 
 ```php
-'route' => [
-    'prefix' => env('MAINTENANCE_MANAGER_ROUTE_PREFIX', 'maintenance-manager'),
-    'middleware' => ['web', 'auth'],
-],
+use Illuminate\Support\Facades\Gate;
+
+Gate::define('manageMaintenanceManager', fn ($user) => (bool) $user->is_admin);
 ```
 
-Bakım modunu yalnızca yetkili kullanıcıların yönetmesi gerekiyorsa buraya yönetici/rol middleware'i ekleyin.
+`is_admin` kontrolünü uygulamanızın rol veya izin kontrolüyle değiştirin. Gate adı `MAINTENANCE_MANAGER_MANAGE_GATE` ortam değişkeni veya `config/maintenance-manager.php` içindeki `authorization.manage_gate` ile değiştirilebilir. Ek koruma için `route.middleware` içine rol middleware'i de ekleyebilirsiniz.
 
 ## Panel önizlemesi
 
@@ -48,7 +49,7 @@ php artisan vendor:publish --tag=maintenance-manager-assets --force
 
 Her paket güncellemesinden sonra en yeni panel JavaScript ve CSS dosyalarının daha önce yayımlanan kopyaların yerini alması için asset yayımlama komutunu `--force` ile yeniden çalıştırın.
 
-Panel `/maintenance-manager` adresindedir. Rotalar varsayılan olarak Laravel'in `web` ve `auth` middleware'lerini kullanır. Uygulamanız farklı kimlik doğrulama veya yetkilendirme middleware'i kullanıyorsa `config/maintenance-manager.php` içindeki `route.middleware` değerini değiştirin. Üretimde bu rotayı yalnızca yöneticilere izin veren bir policy veya middleware ile koruyun.
+Panel `/maintenance-manager` adresindedir. Rotalar Laravel'in `web` ve `auth` middleware'lerini kullanır; ayrıca paneli görüntüleme ve ayarları değiştirme işlemleri `manageMaintenanceManager` Gate'ini gerektirir. Erişim vermeden önce bu Gate'i yönetici rolü veya özel bir izinle tanımlayın. Gate tanımlı değilse veya kullanıcıya izin vermiyorsa paket erişimi reddeder.
 
 ## İstek yakalamayı etkinleştirme
 
@@ -82,6 +83,7 @@ Yapılandırma dosyasını yayımlayın ve şu seçenekleri inceleyin:
 - `enabled`: Paket middleware'i için ana aç/kapat seçeneği.
 - `route.prefix`: Panel URL öneki.
 - `route.middleware`: Paneli koruyan middleware.
+- `authorization.manage_gate`: Bakım ayarlarını görüntülemek ve değiştirmek için gereken Laravel Gate (`manageMaintenanceManager` varsayılanı).
 - `allowed_ips`: Bakım sırasında uygulamaya erişebilecek IP adresleri.
 - `except`: Bakım dışında tutulacak URL yolu kalıpları.
 - `storage`: JSON durum dosyasının yolu.
