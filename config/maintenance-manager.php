@@ -6,6 +6,9 @@ return [
         'prefix' => env('MAINTENANCE_MANAGER_ROUTE_PREFIX', 'maintenance-manager'),
         'middleware' => ['web', 'auth'],
     ],
+    'authorization' => [
+        'manage_gate' => env('MAINTENANCE_MANAGER_MANAGE_GATE', 'manageMaintenanceManager'),
+    ],
     'storage' => storage_path('app/maintenance-manager.json'),
     'bypass_secret' => env('MAINTENANCE_MANAGER_BYPASS_SECRET'),
     'bypass_cookie' => 'maintenance_manager_bypass',
