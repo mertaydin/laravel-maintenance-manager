@@ -12,16 +12,17 @@ A responsive maintenance-mode control panel for Laravel.
 
 ## Dashboard authorization
 
-The management dashboard is protected by Laravel's `web` and `auth` middleware by default. Both the dashboard page and its update endpoint require an authenticated user. You can customize the route middleware in the published `config/maintenance-manager.php` file:
+The management dashboard requires an authenticated user **and** an explicit Laravel authorization Gate by default. Both viewing and changing maintenance settings are denied unless the configured Gate allows the user. This prevents any ordinary authenticated account from enabling maintenance mode, changing the IP allowlist, or modifying the visitor page.
+
+Define the default Gate in your application (for example, in `App\Providers\AppServiceProvider::boot()`):
 
 ```php
-'route' => [
-    'prefix' => env('MAINTENANCE_MANAGER_ROUTE_PREFIX', 'maintenance-manager'),
-    'middleware' => ['web', 'auth'],
-],
+use Illuminate\Support\Facades\Gate;
+
+Gate::define('manageMaintenanceManager', fn ($user) => (bool) $user->is_admin);
 ```
 
-Add an admin/role middleware here when only privileged users should manage maintenance mode.
+Replace `is_admin` with your application's role or permission check. The Gate name is configurable with `MAINTENANCE_MANAGER_MANAGE_GATE` or `authorization.manage_gate` in `config/maintenance-manager.php`. You can also add role middleware to `route.middleware` for defense in depth.
 
 ## Dashboard preview
 
@@ -47,7 +48,7 @@ php artisan vendor:publish --tag=maintenance-manager-assets --force
 
 After every package update, rerun the asset publishing command with `--force` so the latest dashboard JavaScript and CSS replace previously published copies.
 
-The dashboard is available at `/maintenance-manager`. By default, its routes use Laravel's `web` and `auth` middleware. Change `route.middleware` in `config/maintenance-manager.php` if your application uses a different authentication or authorization middleware. Protect this route with an administrator-only policy or middleware in production.
+The dashboard is available at `/maintenance-manager`. Its routes use Laravel's `web` and `auth` middleware and both dashboard actions also require the configured `manageMaintenanceManager` Gate. Define that Gate for an administrator or a dedicated permission before granting access. The package fails closed if the Gate is missing or denies the user.
 
 ## Enable request interception
 
@@ -81,6 +82,7 @@ Publish the config file and review:
 - `enabled`: master switch for the package middleware.
 - `route.prefix`: dashboard URL prefix.
 - `route.middleware`: middleware protecting the dashboard.
+- `authorization.manage_gate`: Laravel Gate required to view and update maintenance settings (`manageMaintenanceManager` by default).
 - `allowed_ips`: IP addresses that can access the application during maintenance.
 - `except`: URL path patterns excluded from maintenance.
 - `storage`: JSON state file path.
