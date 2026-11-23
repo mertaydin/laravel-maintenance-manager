@@ -244,7 +244,10 @@
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'mm-button'; button.textContent = '+' + minutes + ' min';
         button.addEventListener('click', () => {
-            const end = new Date(Date.now() + minutes * 60000);
+            const now = new Date();
+            const currentEnd = endField.value ? new Date(endField.value) : now;
+            const end = Number.isNaN(currentEnd.getTime()) || currentEnd < now ? now : currentEnd;
+            end.setMinutes(end.getMinutes() + minutes);
             const local = new Date(end.getTime() - end.getTimezoneOffset() * 60000);
             endField.value = local.toISOString().slice(0, 16);
             endField.dispatchEvent(new Event('input', {bubbles:true}));
