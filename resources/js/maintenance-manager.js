@@ -227,3 +227,30 @@
     }
     render();
 })();
+
+/* Set a new end time relative to now; the administrator still explicitly saves the form. */
+(() => {
+    'use strict';
+    const form = document.querySelector('.mm-settings');
+    const endField = form?.querySelector('[name="ends_at"]');
+    if (!form || !endField || form.querySelector('[data-mm-extend-tools]')) return;
+    const tools = document.createElement('div');
+    tools.dataset.mmExtendTools = 'true';
+    tools.style.display = 'flex'; tools.style.flexWrap = 'wrap'; tools.style.gap = '8px'; tools.style.marginTop = '8px';
+    const label = document.createElement('small');
+    label.textContent = 'Set maintenance end time from now (save settings to apply):';
+    tools.appendChild(label);
+    [15, 30, 60].forEach(minutes => {
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'mm-button'; button.textContent = '+' + minutes + ' min';
+        button.addEventListener('click', () => {
+            const end = new Date(Date.now() + minutes * 60000);
+            const local = new Date(end.getTime() - end.getTimezoneOffset() * 60000);
+            endField.value = local.toISOString().slice(0, 16);
+            endField.dispatchEvent(new Event('input', {bubbles:true}));
+            endField.dispatchEvent(new Event('change', {bubbles:true}));
+        });
+        tools.appendChild(button);
+    });
+    endField.parentElement?.appendChild(tools);
+})();
