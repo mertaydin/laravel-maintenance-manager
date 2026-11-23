@@ -1,3 +1,8 @@
+## Unreleased
+
+- Require an explicit Laravel authorization Gate to view or modify maintenance settings; authenticated users without the configured permission are denied by default.
+- Add authorization regression tests and document Gate configuration.
+
 ## v0.2.3 - 2026-11-22
 
 - Add `barryvdh/laravel-ide-helper` as a development dependency, selecting a compatible release for the supported Laravel versions.

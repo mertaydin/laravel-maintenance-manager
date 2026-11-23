@@ -2,8 +2,10 @@
 
 namespace MertAydin\MaintenanceManager\Tests;
 
+use Illuminate\Auth\GenericUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use MertAydin\MaintenanceManager\Http\Middleware\MaintenanceMiddleware;
 use MertAydin\MaintenanceManager\MaintenanceManagerServiceProvider;
@@ -48,6 +50,30 @@ class ExampleTest extends TestCase
 
         $this->put(route('maintenance-manager.update'), [])
             ->assertRedirect(route('login'));
+    }
+
+    public function test_authenticated_users_without_the_management_gate_are_forbidden(): void
+    {
+        $this->actingAs(new GenericUser(['id' => 1]));
+
+        $this->get(route('maintenance-manager.index'))->assertForbidden();
+        $this->put(route('maintenance-manager.update'), [])->assertForbidden();
+    }
+
+    public function test_management_gate_allows_authorized_users_to_view_and_update_settings(): void
+    {
+        Gate::define('manageMaintenanceManager', fn ($user): bool => $user->getAuthIdentifier() === 1);
+        $this->actingAs(new GenericUser(['id' => 1]));
+
+        $this->get(route('maintenance-manager.index'))->assertOk();
+
+        $this->put(route('maintenance-manager.update'), [
+            'enabled' => true,
+            'title' => 'Planned maintenance',
+            'message' => 'We will be back shortly.',
+        ])->assertRedirect();
+
+        $this->assertTrue(app(MaintenanceManager::class)->state()['enabled']);
     }
 
     public function test_bypass_secret_is_rejected_over_plain_http(): void

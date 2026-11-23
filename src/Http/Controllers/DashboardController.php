@@ -5,6 +5,7 @@ namespace MertAydin\MaintenanceManager\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use MertAydin\MaintenanceManager\Support\MaintenanceManager;
@@ -15,6 +16,8 @@ class DashboardController extends Controller
 
     public function index(): View
     {
+        $this->authorizeManagement();
+
         return view('maintenance-manager::dashboard', [
             'state' => $this->manager->state(),
             'active' => $this->manager->isActive(),
@@ -23,6 +26,8 @@ class DashboardController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        $this->authorizeManagement();
+
         $validated = $request->validate([
             'enabled' => ['nullable', 'boolean'],
             'title' => ['required', 'string', 'max:120'],
@@ -81,8 +86,8 @@ class DashboardController extends Controller
             'enabled' => $enabled,
             'title' => $validated['title'],
             'message' => $validated['message'],
-            'starts_at' => $validated['starts_at'] ?: null,
-            'ends_at' => $validated['ends_at'] ?: null,
+            'starts_at' => ($validated['starts_at'] ?? null) ?: null,
+            'ends_at' => ($validated['ends_at'] ?? null) ?: null,
             'allowed_ips' => $ips,
             'image' => $image,
             'history' => $history,
@@ -94,5 +99,10 @@ class DashboardController extends Controller
         }
 
         return back()->with('status', 'Maintenance settings saved successfully.');
+    }
+
+    private function authorizeManagement(): void
+    {
+        Gate::authorize((string) config('maintenance-manager.authorization.manage_gate', 'manageMaintenanceManager'));
     }
 }
