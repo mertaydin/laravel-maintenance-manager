@@ -181,3 +181,79 @@
         if ((localStorage.getItem(themeKey) || 'system') === 'system') applyTheme('system');
     });
 })();
+/* Live visitor-page preview. All rendering stays local; form values are never submitted by this feature. */
+(() => {
+    'use strict';
+    const form = document.querySelector('.mm-settings');
+    if (!form || form.querySelector('[data-mm-preview]')) return;
+    const titleField = form.querySelector('[name="title"]');
+    const messageField = form.querySelector('[name="message"]');
+    const imageField = form.querySelector('[name="image"]');
+    if (!titleField || !messageField) return;
+    const card = document.createElement('article');
+    card.dataset.mmPreview = 'true';
+    card.className = 'mm-card';
+    card.style.marginTop = '20px';
+    card.style.padding = '24px';
+    card.innerHTML = '<div class="mm-card-heading"><div><small>LIVE PREVIEW</small><h2>Visitor maintenance page</h2><p>Preview updates as you edit the settings.</p></div></div><div class="mm-preview-surface" style="border-radius:16px;padding:28px;text-align:center;background:linear-gradient(135deg,#101827,#26364d);color:#fff;min-height:180px;display:grid;place-content:center;gap:12px"><img data-mm-preview-image alt="" hidden style="max-width:100%;max-height:150px;object-fit:contain;margin:auto;border-radius:10px"><strong data-mm-preview-title style="font-size:clamp(20px,3vw,30px)"></strong><p data-mm-preview-message style="margin:0;white-space:pre-wrap;opacity:.85"></p></div>';
+    form.insertAdjacentElement('afterend', card);
+    const previewTitle = card.querySelector('[data-mm-preview-title]');
+    const previewMessage = card.querySelector('[data-mm-preview-message]');
+    const previewImage = card.querySelector('[data-mm-preview-image]');
+    let objectUrl = null;
+    const render = () => {
+        previewTitle.textContent = titleField.value || 'We will be back soon';
+        previewMessage.textContent = messageField.value || 'We are making a few improvements. Please check back shortly.';
+    };
+    titleField.addEventListener('input', render);
+    messageField.addEventListener('input', render);
+    imageField?.addEventListener('change', () => {
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+        const file = imageField.files?.[0];
+        if (!file || !/^image\/(jpeg|png|webp)$/.test(file.type)) {
+            previewImage.hidden = true;
+            previewImage.removeAttribute('src');
+            objectUrl = null;
+            return;
+        }
+        objectUrl = URL.createObjectURL(file);
+        previewImage.src = objectUrl;
+        previewImage.hidden = false;
+    });
+    const currentImage = form.querySelector('.mm-image-preview');
+    if (currentImage?.src) {
+        previewImage.src = currentImage.src;
+        previewImage.hidden = false;
+    }
+    render();
+})();
+
+/* Set a new end time relative to now; the administrator still explicitly saves the form. */
+(() => {
+    'use strict';
+    const form = document.querySelector('.mm-settings');
+    const endField = form?.querySelector('[name="ends_at"]');
+    if (!form || !endField || form.querySelector('[data-mm-extend-tools]')) return;
+    const tools = document.createElement('div');
+    tools.dataset.mmExtendTools = 'true';
+    tools.style.display = 'flex'; tools.style.flexWrap = 'wrap'; tools.style.gap = '8px'; tools.style.marginTop = '8px';
+    const label = document.createElement('small');
+    label.textContent = 'Set maintenance end time from now (save settings to apply):';
+    tools.appendChild(label);
+    [15, 30, 60].forEach(minutes => {
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'mm-button'; button.textContent = '+' + minutes + ' min';
+        button.addEventListener('click', () => {
+            const now = new Date();
+            const currentEnd = endField.value ? new Date(endField.value) : now;
+            const end = Number.isNaN(currentEnd.getTime()) || currentEnd < now ? now : currentEnd;
+            end.setMinutes(end.getMinutes() + minutes);
+            const local = new Date(end.getTime() - end.getTimezoneOffset() * 60000);
+            endField.value = local.toISOString().slice(0, 16);
+            endField.dispatchEvent(new Event('input', {bubbles:true}));
+            endField.dispatchEvent(new Event('change', {bubbles:true}));
+        });
+        tools.appendChild(button);
+    });
+    endField.parentElement?.appendChild(tools);
+})();
